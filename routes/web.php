@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\NoteController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,3 +29,4 @@ Route::get('notes', [NoteController::class, 'index'])->name('notes.index');
 Route::get('notes/create', [NoteController::class, 'create'])->name('notes.create');
 Route::post('notes', [NoteController::class, 'store'])->name('notes.store');
 Route::get('statistiques', [NoteController::class, 'statistiques'])->name('notes.stats');
+

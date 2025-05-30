@@ -10,8 +10,9 @@ class Etudiant extends Model
 {
     use HasFactory;
 
-     protected $fillable = ['titre', 'date', 'type'];
+     protected $fillable = ['prenom', 'nom', 'date_naissance'];
 
+     
     public function notes()
     {
         return $this->hasMany(Note::class);

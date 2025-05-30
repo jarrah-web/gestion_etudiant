@@ -9,7 +9,11 @@ class Evaluation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titre', 'date', 'type'];
+    protected $fillable = ['titre', 'date', 'duree'];
+
+    protected $casts = [
+        'date' => 'date',  
+    ];
 
     public function notes()
     {

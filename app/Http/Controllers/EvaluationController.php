@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Evaluation;
 use Illuminate\Http\Request;
-
 
 class EvaluationController extends Controller
 {
@@ -29,8 +29,15 @@ class EvaluationController extends Controller
      */
     public function store(Request $request)
     {
-        Evaluation::create($request->all());
-        return redirect()->route('evaluations.index');
+        $validated = $request->validate([
+            'titre' => 'required|string|max:255',
+            'date' => 'required|date',
+            'duree' => 'required|integer|min:1',
+        ]);
+
+        Evaluation::create($validated);
+
+        return redirect()->route('evaluations.index')->with('success', 'Évaluation créée avec succès.');
     }
 
     /**
@@ -38,7 +45,8 @@ class EvaluationController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $evaluation = Evaluation::findOrFail($id);
+        return view('evaluations.show', compact('evaluation'));
     }
 
     /**
@@ -46,7 +54,8 @@ class EvaluationController extends Controller
      */
     public function edit(string $id)
     {
-         return view('evaluations.edit', compact('evaluation'));
+        $evaluation = Evaluation::findOrFail($id);
+        return view('evaluations.edit', compact('evaluation'));
     }
 
     /**
@@ -54,8 +63,17 @@ class EvaluationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $evaluation->update($request->all());
-        return redirect()->route('evaluations.index');
+        $evaluation = Evaluation::findOrFail($id);
+
+        $validated = $request->validate([
+            'titre' => 'required|string|max:255',
+            'date' => 'required|date',
+            'duree' => 'required|integer|min:1',
+        ]);
+
+        $evaluation->update($validated);
+
+        return redirect()->route('evaluations.index')->with('success', 'Évaluation mise à jour avec succès.');
     }
 
     /**
@@ -63,7 +81,9 @@ class EvaluationController extends Controller
      */
     public function destroy(string $id)
     {
+        $evaluation = Evaluation::findOrFail($id);
         $evaluation->delete();
-        return redirect()->route('evaluations.index');
+
+        return redirect()->route('evaluations.index')->with('success', 'Évaluation supprimée avec succès.');
     }
 }

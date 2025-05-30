@@ -18,8 +18,8 @@
         @csrf
 
         <div class="mb-3">
-            <label for="intitule" class="form-label">Intitulé</label>
-            <input type="text" name="intitule" class="form-control" required>
+            <label for="intitule" class="form-label">Titre</label>
+            <input type="text" name="titre" class="form-control" required>
         </div>
 
         <div class="mb-3">
