@@ -28,8 +28,14 @@ class EtudiantController extends Controller
      */
     public function store(Request $request)
     {
-      Etudiant::create($request->all());
-        return redirect()->route('etudiants.index');
+     $request->validate([
+        'prenom' => 'required|max:40',
+        'nom' => 'required|max:45',
+        'date_naissance' => 'required|date',
+    ]);
+
+    Etudiant::create($request->all());
+    return redirect()->route('etudiants.index')->with('success', 'Étudiant ajouté');
     }
 
     /**
